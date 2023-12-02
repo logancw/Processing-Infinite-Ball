@@ -2,6 +2,8 @@ float x,y;
 float speed;
 float direction; 
 color c; 
+int totalTime; 
+int startTime;
 
 
 // double speedIncrease = 0.1;
@@ -11,14 +13,30 @@ void setup(){
 
   fullScreen(); 
 
+  totalTime = 10 * 60 * 1000;
+  startTime = millis();
+
   x = width/2;
   y = height/2;
-  speed = 0.1;  // Adjustable to your liking
+  speed = 5;  // Adjustable to your liking
   direction = random(TWO_PI);
   c = color(255); // Inital Colour of the ball
 }
 
 void draw(){
+
+  int elapsedTime = millis() - startTime;
+
+  if(elapsedTime > totalTime){
+     x = width/2;
+    y = height/2; 
+    speed = 5;
+    direction = random(TWO_PI);
+    c = color(255);
+
+    startTime = millis(); 
+  }
+
   update(); // Calls the functions
   bounce();
   change();
@@ -41,7 +59,7 @@ void bounce(){
 }
 // Change colour + increase speed.
 void change(){
-  speed += 0.5; 
+  // speed += 0.5; 
   c = color(random(255), random(255), random(255));
 }
 
